@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Adds a fade transition betweeen spheres
+/// </summary>
 public class SphereChanger : MonoBehaviour
 {
     public GameObject m_Fader;
     // Animator faderAnimator;
     //This ensures that we don't mash to change spheres
-    bool changing = false;
+    // bool changing = false;
 
     void Awake()
     {
@@ -22,24 +25,6 @@ public class SphereChanger : MonoBehaviour
         // Start fading
         StartCoroutine(FadeCamera(nextSphere));
     }
-    // IEnumerator changeSphere(Transform nextSphere)
-    // {
-    //     yield return new WaitForSeconds(1.2f);
-    //     Camera.main.transform.parent.position = nextSphere.position;
-
-    // }
-    // void Start()
-    // {
-    //     faderAnimator = m_Fader.GetComponent<Animator>();
-    // }
-
-    // public void goToSphere(Transform nextSphere)
-    // {
-    //     faderAnimator.SetTrigger("startFading");
-    //     StartCoroutine(changeSphere(nextSphere));
-    // }
-
-
     IEnumerator FadeCamera(Transform nextSphere)
     {
         //Ensure we have a fader object
