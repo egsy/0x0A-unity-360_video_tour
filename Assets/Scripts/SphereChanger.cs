@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 /// <summary>
 /// Adds a fade transition betweeen spheres
@@ -8,6 +9,7 @@ using UnityEngine;
 public class SphereChanger : MonoBehaviour
 {
     public GameObject m_Fader;
+    VideoPlayer currentSphere;
     // Animator faderAnimator;
     //This ensures that we don't mash to change spheres
     // bool changing = false;
@@ -20,13 +22,17 @@ public class SphereChanger : MonoBehaviour
             Debug.LogWarning("No Fader object found on camera.");
     }
 
-    public void ChangeSphere(Transform nextSphere)
+    public void ChangeSphere(GameObject nextSphere)
     {
         // Start fading
         StartCoroutine(FadeCamera(nextSphere));
     }
-    IEnumerator FadeCamera(Transform nextSphere)
+    IEnumerator FadeCamera(GameObject nextSphere)
     {
+        currentSphere = gameObject.GetComponentInParent<VideoPlayer>();
+
+        currentSphere.Stop();
+        currentSphere.isActiveAndEnabled
         //Ensure we have a fader object
         if (m_Fader != null)
         {
@@ -36,7 +42,7 @@ public class SphereChanger : MonoBehaviour
             yield return new WaitForSeconds(0.75f);
 
             //Change the camera position
-            Camera.main.transform.parent.position = nextSphere.position;
+            Camera.main.transform.parent.position = nextSphere.transform.position;
 
             //Fade the Quad object out 
             StartCoroutine(FadeOut(0.75f, m_Fader.GetComponent<Renderer>().material));
@@ -46,7 +52,7 @@ public class SphereChanger : MonoBehaviour
         {
             Debug.Log("No Fader!");
             //No fader, so just swap the camera position
-            Camera.main.transform.parent.position = nextSphere.position;
+            Camera.main.transform.parent.position = nextSphere.transform.position;
         }
     }
 
