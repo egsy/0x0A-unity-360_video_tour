@@ -59,9 +59,12 @@ public class SphereChanger : MonoBehaviour
 
     IEnumerator FadeIn(float time, Material mat, GameObject sphere)
     {
-        // nextSphereVideo = nextSphere.GetComponent<VideoPlayer>();
-        // nextSphereVideo.enabled = true;
-        // nextSphereVideo.Play();
+        sphere.SetActive(true);
+
+        nextSphereVideo = nextSphere.GetComponent<VideoPlayer>();
+        nextSphereVideo.enabled = true;
+
+        nextSphereVideo.Play();
         // //While we aren't fully visible, add some of the alpha colour
         while (mat.color.a <= 1.0f)
         {
@@ -73,8 +76,9 @@ public class SphereChanger : MonoBehaviour
     }
     IEnumerator FadeOut(float time, Material mat)
     {
+        Debug.Log("current gameObject is: " + gameObject.name);
         currentSphereVideo = gameObject.GetComponentInParent<VideoPlayer>();
-        Debug.Log(GetComponentInParent<VideoPlayer>());
+        Debug.Log("current sphere video component is: " + gameObject.GetComponentInParent<VideoPlayer>());
         // Stop current video, start next video
         //While we are still visible, remove some of the alpha colour
         while (mat.color.a >= 0.0f)
