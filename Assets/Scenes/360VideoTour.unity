@@ -804,7 +804,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1399950406}
+      objectReference: {fileID: 1988437241}
     - target: {fileID: 2937401488375939768, guid: fbf51b4cdc36d48d494f495754137c9d,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -984,7 +984,7 @@ VideoPlayer:
   - 1
   m_Url: 
   m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
+  m_DirectAudioMutes: 01
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
@@ -2043,6 +2043,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60270cf52a5e94998a5a335989159738, type: 3}
+--- !u!1 &1988437235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2937401488375939771, guid: fbf51b4cdc36d48d494f495754137c9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 746943726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1988437241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988437235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545996c4815d94a51b3d2a7e4f1452f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Fader: {fileID: 1863878701}
 --- !u!1001 &2041340973
 PrefabInstance:
   m_ObjectHideFlags: 0

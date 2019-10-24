@@ -12,7 +12,6 @@ public class SphereChanger : MonoBehaviour
     GameObject nextSphere;
     VideoPlayer currentSphereVideo;
     VideoPlayer nextSphereVideo;
-    // Animator faderAnimator;
     //This ensures that we don't mash to change spheres
     // bool changing = false;
 
@@ -36,7 +35,7 @@ public class SphereChanger : MonoBehaviour
         if (m_Fader != null)
         {
             //Fade the Quad object in and wait 0.75 seconds
-            StartCoroutine(FadeIn(0.75f, m_Fader.GetComponent<Renderer>().material, nextSphere));
+            StartCoroutine(FadeIn(0.75f, m_Fader.GetComponent<Renderer>().material));
             yield return new WaitForSeconds(0.75f);
 
 
@@ -57,9 +56,9 @@ public class SphereChanger : MonoBehaviour
     }
 
 
-    IEnumerator FadeIn(float time, Material mat, GameObject sphere)
+    IEnumerator FadeIn(float time, Material mat)
     {
-        sphere.SetActive(true);
+        nextSphere.SetActive(true);
 
         nextSphereVideo = nextSphere.GetComponent<VideoPlayer>();
         nextSphereVideo.enabled = true;
@@ -76,19 +75,26 @@ public class SphereChanger : MonoBehaviour
     }
     IEnumerator FadeOut(float time, Material mat)
     {
-        Debug.Log("current gameObject is: " + gameObject.name);
-        currentSphereVideo = gameObject.GetComponentInParent<VideoPlayer>();
-        Debug.Log("current sphere video component is: " + gameObject.GetComponentInParent<VideoPlayer>());
         // Stop current video, start next video
         //While we are still visible, remove some of the alpha colour
+        StartCoroutine(VideoOff(gameObject.GetComponentInParent<VideoPlayer>()));
         while (mat.color.a >= 0.0f)
         {
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, mat.color.a - (Time.deltaTime / time));
             //change the bool to true when its completely fade out                      
             yield return null;
         }
+    }
+
+    IEnumerator VideoOff(VideoPlayer vid)
+    {
+        Debug.Log("current gameObject is: " + gameObject.name);
+        vid = gameObject.GetComponentInParent<VideoPlayer>();
+        Debug.Log("current sphere video component is: " + vid);
+
         //     currentSphereVideo.Stop();
         //     currentSphereVideo.enabled = false;
+        yield return null;
     }
 
 
