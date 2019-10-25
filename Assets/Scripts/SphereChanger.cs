@@ -9,9 +9,10 @@ using UnityEngine.Video;
 public class SphereChanger : MonoBehaviour
 {
     public GameObject m_Fader;
-    GameObject nextSphere;
+    public GameObject nextSphere;
     VideoPlayer currentSphereVideo;
     VideoPlayer nextSphereVideo;
+    // Animator faderAnimator;
     //This ensures that we don't mash to change spheres
     // bool changing = false;
 
@@ -58,13 +59,8 @@ public class SphereChanger : MonoBehaviour
 
     IEnumerator FadeIn(float time, Material mat)
     {
-        nextSphere.SetActive(true);
-
-        nextSphereVideo = nextSphere.GetComponent<VideoPlayer>();
-        nextSphereVideo.enabled = true;
-
-        nextSphereVideo.Play();
-        // //While we aren't fully visible, add some of the alpha colour
+        // While we aren't fully visible, add some of the alpha colour
+        StartCoroutine(VideoOn(nextSphere));
         while (mat.color.a <= 1.0f)
         {
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, mat.color.a + (Time.deltaTime / time));
@@ -77,27 +73,42 @@ public class SphereChanger : MonoBehaviour
     {
         // Stop current video, start next video
         //While we are still visible, remove some of the alpha colour
-        StartCoroutine(VideoOff(gameObject.GetComponentInParent<VideoPlayer>()));
         while (mat.color.a >= 0.0f)
         {
+            StartCoroutine(VideoOff(gameObject.GetComponentInParent<VideoPlayer>()));
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, mat.color.a - (Time.deltaTime / time));
             //change the bool to true when its completely fade out                      
             yield return null;
         }
     }
 
+    /// <summary>
+    /// Stop video in current sphere and disable videoplayer
+    /// </summary>
+    /// <param name="vid"></param>
+    /// <returns></returns>
     IEnumerator VideoOff(VideoPlayer vid)
     {
         Debug.Log("current gameObject is: " + gameObject.name);
         vid = gameObject.GetComponentInParent<VideoPlayer>();
         Debug.Log("current sphere video component is: " + vid);
-
-        //     currentSphereVideo.Stop();
-        //     currentSphereVideo.enabled = false;
+        vid.Stop();
+        vid.enabled = false;
         yield return null;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="nextSphere"></param>
+    /// <returns></returns>
+    IEnumerator VideoOn(GameObject nextSphere)
+    {
+        nextSphereVideo = nextSphere.GetComponent<VideoPlayer>();
 
-
-
+        nextSphere.SetActive(true);
+        nextSphereVideo.enabled = true;
+        nextSphereVideo.Play();
+        yield return null;
+    }
 }
