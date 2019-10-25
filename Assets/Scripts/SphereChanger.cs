@@ -60,13 +60,13 @@ public class SphereChanger : MonoBehaviour
     IEnumerator FadeIn(float time, Material mat)
     {
         // While we aren't fully visible, add some of the alpha colour
-        StartCoroutine(VideoOn(nextSphere));
         while (mat.color.a <= 1.0f)
         {
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, mat.color.a + (Time.deltaTime / time));
             //change the bool to true when its completely fade out              
             yield return null;
         }
+        StartCoroutine(VideoOn(nextSphere));
 
     }
     IEnumerator FadeOut(float time, Material mat)
@@ -75,11 +75,11 @@ public class SphereChanger : MonoBehaviour
         //While we are still visible, remove some of the alpha colour
         while (mat.color.a >= 0.0f)
         {
-            StartCoroutine(VideoOff(gameObject.GetComponentInParent<VideoPlayer>()));
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, mat.color.a - (Time.deltaTime / time));
             //change the bool to true when its completely fade out                      
             yield return null;
         }
+        StartCoroutine(VideoOff(gameObject.GetComponentInParent<VideoPlayer>()));
     }
 
     /// <summary>

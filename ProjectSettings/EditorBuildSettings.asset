@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/360VideoTour.unity
+    guid: 6f0037cf3f5ee4bd58b868a15d7e34d7
   m_configObjects: {}
